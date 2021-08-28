@@ -1,6 +1,7 @@
 version: "3.4"
 services:
   hogwarts-api:
+    container_name: hogwarts_api
     build:
       context: .
       dockerfile: Dockerfile
@@ -13,9 +14,21 @@ services:
     depends_on:
       - postgres
   postgres:
+    container_name: postgres
     image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+      PGDATA: /data/postgres
+      POSGRES_DB: "hogwarts"
+    volumes:
+      - postgres:/data/postgres
     ports:
       - "5439:5439"
+    networks:
+      - postgres
+    restart: unless-stopped
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
@@ -40,6 +53,5 @@ networks:
     driver: bridge
 
 volumes:
-  hogwarts-api:
   postgres:
   pgadmin:

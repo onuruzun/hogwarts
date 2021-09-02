@@ -27,7 +27,7 @@ api: https://localhost:1907/swagger/index.html
 - Docker,
 - Swagger
 - AutoMapper,
-- EF Core
+- EF Core,
 - Generic Design Pattern,
 - Repository Pattern,
 - Dependency Injection
